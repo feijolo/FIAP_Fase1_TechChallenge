@@ -1,0 +1,7 @@
+tensorflow
+keras
+torch
+torchvision
+albumentations
+opencv-python
+kaggle
