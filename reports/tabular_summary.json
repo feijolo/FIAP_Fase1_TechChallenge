@@ -1,124 +1,298 @@
 {
+  "cross_validation": {
+    "logreg": {
+      "accuracy": {
+        "mean": 0.9780219780219781,
+        "std": 0.009828870230768321,
+        "folds": [
+          0.967032967032967,
+          0.989010989010989,
+          0.978021978021978,
+          0.989010989010989,
+          0.967032967032967
+        ]
+      },
+      "recall": {
+        "mean": 0.9859649122807017,
+        "std": 0.013128622409733132,
+        "folds": [
+          1.0,
+          0.9824561403508771,
+          0.9824561403508771,
+          1.0,
+          0.9649122807017544
+        ]
+      },
+      "f1": {
+        "mean": 0.9825442464894886,
+        "std": 0.007752336477690741,
+        "folds": [
+          0.9743589743589743,
+          0.9911504424778761,
+          0.9824561403508771,
+          0.991304347826087,
+          0.9734513274336283
+        ]
+      },
+      "roc_auc": {
+        "mean": 0.9955624355005159,
+        "std": 0.005040939005911171,
+        "folds": [
+          0.9855521155830753,
+          0.9984520123839009,
+          0.9969040247678018,
+          0.9984520123839009,
+          0.9984520123839009
+        ]
+      }
+    },
+    "rf": {
+      "accuracy": {
+        "mean": 0.9626373626373628,
+        "std": 0.01785502946073838,
+        "folds": [
+          0.967032967032967,
+          0.9560439560439561,
+          0.9340659340659341,
+          0.967032967032967,
+          0.989010989010989
+        ]
+      },
+      "recall": {
+        "mean": 0.9649122807017545,
+        "std": 0.024810764252159563,
+        "folds": [
+          0.9649122807017544,
+          0.9473684210526315,
+          0.9298245614035088,
+          1.0,
+          0.9824561403508771
+        ]
+      },
+      "f1": {
+        "mean": 0.9699350059969529,
+        "std": 0.01460477812598703,
+        "folds": [
+          0.9734513274336283,
+          0.9642857142857143,
+          0.9464285714285714,
+          0.9743589743589743,
+          0.9911504424778761
+        ]
+      },
+      "roc_auc": {
+        "mean": 0.9895768833849328,
+        "std": 0.008256901388106048,
+        "folds": [
+          0.9865841073271414,
+          0.9979360165118678,
+          0.9883900928792569,
+          0.9762641898864809,
+          0.9987100103199174
+        ]
+      }
+    }
+  },
   "logreg": {
     "classification_report": {
-      "0": {
+      "maligno": {
         "precision": 0.9761904761904762,
-        "recall": 0.9534883720930233,
-        "f1-score": 0.9647058823529412,
-        "support": 43.0
+        "recall": 0.9761904761904762,
+        "f1-score": 0.9761904761904762,
+        "support": 42.0
       },
-      "1": {
-        "precision": 0.9722222222222222,
-        "recall": 0.9859154929577465,
-        "f1-score": 0.9790209790209791,
-        "support": 71.0
+      "benigno": {
+        "precision": 0.9861111111111112,
+        "recall": 0.9861111111111112,
+        "f1-score": 0.9861111111111112,
+        "support": 72.0
       },
-      "accuracy": 0.9736842105263158,
+      "accuracy": 0.9824561403508771,
       "macro avg": {
-        "precision": 0.9742063492063492,
-        "recall": 0.9697019325253848,
-        "f1-score": 0.9718634306869601,
+        "precision": 0.9811507936507937,
+        "recall": 0.9811507936507937,
+        "f1-score": 0.9811507936507937,
         "support": 114.0
       },
       "weighted avg": {
-        "precision": 0.9737190197716513,
-        "recall": 0.9736842105263158,
-        "f1-score": 0.973621425014614,
+        "precision": 0.9824561403508771,
+        "recall": 0.9824561403508771,
+        "f1-score": 0.9824561403508771,
+        "support": 114.0
+      }
+    },
+    "validation_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 0.9767441860465116,
+        "f1-score": 0.9882352941176471,
+        "support": 43.0
+      },
+      "1": {
+        "precision": 0.9861111111111112,
+        "recall": 1.0,
+        "f1-score": 0.993006993006993,
+        "support": 71.0
+      },
+      "accuracy": 0.9912280701754386,
+      "macro avg": {
+        "precision": 0.9930555555555556,
+        "recall": 0.9883720930232558,
+        "f1-score": 0.99062114356232,
+        "support": 114.0
+      },
+      "weighted avg": {
+        "precision": 0.991349902534113,
+        "recall": 0.9912280701754386,
+        "f1-score": 0.991207141671538,
         "support": 114.0
       }
     },
     "confusion_matrix": [
       [
         41,
-        2
+        1
       ],
       [
         1,
-        70
+        71
       ]
     ],
-    "roc_auc": 0.99737962659679
+    "roc_auc": 0.9950396825396824
   },
   "rf": {
     "classification_report": {
-      "0": {
-        "precision": 0.975609756097561,
-        "recall": 0.9302325581395349,
-        "f1-score": 0.9523809523809523,
-        "support": 43.0
+      "maligno": {
+        "precision": 0.9285714285714286,
+        "recall": 0.9285714285714286,
+        "f1-score": 0.9285714285714286,
+        "support": 42.0
       },
-      "1": {
-        "precision": 0.958904109589041,
-        "recall": 0.9859154929577465,
-        "f1-score": 0.9722222222222222,
-        "support": 71.0
+      "benigno": {
+        "precision": 0.9583333333333334,
+        "recall": 0.9583333333333334,
+        "f1-score": 0.9583333333333334,
+        "support": 72.0
       },
-      "accuracy": 0.9649122807017544,
+      "accuracy": 0.9473684210526315,
       "macro avg": {
-        "precision": 0.9672569328433009,
-        "recall": 0.9580740255486406,
-        "f1-score": 0.9623015873015872,
+        "precision": 0.9434523809523809,
+        "recall": 0.9434523809523809,
+        "f1-score": 0.9434523809523809,
         "support": 114.0
       },
       "weighted avg": {
-        "precision": 0.9652053622194477,
-        "recall": 0.9649122807017544,
-        "f1-score": 0.9647382344750765,
+        "precision": 0.9473684210526315,
+        "recall": 0.9473684210526315,
+        "f1-score": 0.9473684210526315,
+        "support": 114.0
+      }
+    },
+    "validation_report": {
+      "0": {
+        "precision": 0.9302325581395349,
+        "recall": 0.9302325581395349,
+        "f1-score": 0.9302325581395349,
+        "support": 43.0
+      },
+      "1": {
+        "precision": 0.9577464788732394,
+        "recall": 0.9577464788732394,
+        "f1-score": 0.9577464788732394,
+        "support": 71.0
+      },
+      "accuracy": 0.9473684210526315,
+      "macro avg": {
+        "precision": 0.9439895185063871,
+        "recall": 0.9439895185063871,
+        "f1-score": 0.9439895185063871,
+        "support": 114.0
+      },
+      "weighted avg": {
+        "precision": 0.9473684210526315,
+        "recall": 0.9473684210526315,
+        "f1-score": 0.9473684210526315,
         "support": 114.0
       }
     },
     "confusion_matrix": [
       [
-        40,
+        39,
         3
       ],
       [
-        1,
-        70
+        3,
+        69
       ]
     ],
-    "roc_auc": 0.995250573206682,
+    "roc_auc": 0.9917328042328042,
     "top_features": [
       [
-        "worst area",
-        0.15389236463205394
+        "worst concave points",
+        0.18177428159081643
       ],
       [
-        "worst concave points",
-        0.14466326620735528
+        "worst area",
+        0.14243731209310054
       ],
       [
         "mean concave points",
-        0.10620998844591638
-      ],
-      [
-        "worst radius",
-        0.07798687515738047
-      ],
-      [
-        "mean concavity",
-        0.06800084191430111
+        0.09667986052509164
       ],
       [
         "worst perimeter",
-        0.06711483267839194
+        0.0802484135090151
       ],
       [
-        "mean perimeter",
-        0.053269746128179675
-      ],
-      [
-        "mean radius",
-        0.048703371737755234
+        "mean concavity",
+        0.0714063625062561
       ],
       [
         "mean area",
-        0.04755500886018552
+        0.0513567586146367
       ],
       [
-        "worst concavity",
-        0.031801595740040434
+        "mean perimeter",
+        0.05135355494882698
+      ],
+      [
+        "worst radius",
+        0.04988160330780332
+      ],
+      [
+        "mean radius",
+        0.04108950932324039
+      ],
+      [
+        "area error",
+        0.03433631134652371
       ]
+    ]
+  },
+  "metric_discussion": {
+    "primary_metric": "recall",
+    "justification": "Em diagnóstico de câncer de mama, a métrica mais crítica é o RECALL (sensibilidade), pois falsos negativos — não detectar um tumor maligno — podem ter consequências graves para a paciente, atrasando o tratamento. Um falso positivo (classificar benigno como maligno) gera exames adicionais, mas um falso negativo pode ser fatal. Por isso, priorizamos recall para a classe maligna, complementado por F1-score para balancear com precisão, e ROC-AUC para avaliação geral da capacidade discriminativa do modelo.",
+    "secondary_metrics": [
+      "f1-score",
+      "roc_auc",
+      "accuracy"
+    ]
+  },
+  "critical_discussion": {
+    "can_be_used_in_practice": "O modelo apresenta resultados promissores (ROC-AUC > 0.99), porém há limitações importantes a considerar antes de qualquer uso clínico:",
+    "limitations": [
+      "Dataset pequeno (569 amostras) — insuficiente para generalização clínica robusta.",
+      "Dados de uma única fonte (UCI/Wisconsin) — pode não representar populações diversas.",
+      "Features pré-extraídas (FNA digitalizada) — não cobre todo o fluxo diagnóstico real.",
+      "Ausência de validação prospectiva em ambiente clínico.",
+      "Possível overfitting dado o tamanho reduzido do dataset."
+    ],
+    "recommended_use": "O modelo deve ser utilizado EXCLUSIVAMENTE como ferramenta de SUPORTE à decisão médica, jamais como diagnóstico definitivo. O médico sempre deve ter a palavra final no diagnóstico. Sugere-se uso como sistema de triagem para priorizar casos suspeitos, reduzindo o tempo de espera para análise especializada, sem substituir o julgamento clínico.",
+    "next_steps": [
+      "Validação com datasets maiores e mais diversos.",
+      "Validação prospectiva em ambiente hospitalar.",
+      "Integração com outros dados clínicos (idade, histórico familiar, etc.).",
+      "Avaliação de fairness/equidade entre diferentes grupos demográficos."
     ]
   }
 }

@@ -11,3 +11,4 @@ pillow
 lightgbm
 pytorch-grad-cam
 opencv-python-headless
+shap
