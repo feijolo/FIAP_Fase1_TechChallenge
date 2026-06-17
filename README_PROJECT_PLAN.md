@@ -1,34 +1,108 @@
-Plano de Ação - Tech Challenge Fase 1
+# 📋 Plano de Execução do Projeto — Tech Challenge Fase 1
 
-Resumo do que vou entregar e cronograma (fases):
+> Este documento descreve o plano de trabalho seguido para desenvolver o projeto de diagnóstico de câncer de mama com Machine Learning.
 
-Fase A - Tabular (obrigatório) — 3 dias
-- Baixar e preparar dataset Breast Cancer Wisconsin (sklearn/Kaggle)
-- EDA, estatísticas descritivas e visualizações
-- Pré-processamento: tratamento de valores ausentes, encoding, scaling
-- Modelagem: Logistic Regression, RandomForest (+KNN se tempo)
-- Treino/validação/teste com cross-validation
-- Métricas: accuracy, precision, recall, F1, ROC-AUC
-- Interpretabilidade: feature importance e SHAP
-- Notebook executável, scripts e relatório em PDF
+---
 
-Fase B - Visão Computacional (extra) — 5 dias
-- Baixar subset de mamografias (CBIS-DDSM) ou Chest X-Ray Pneumonia via Kaggle
-- Preparar dataset com pipeline de augmentations
-- Treinar CNN por transfer learning (ResNet50) em Colab/TPU/GPU sugerido
-- Avaliação (confusion matrix, precision/recall/F1, ROC) e interpretação (Grad-CAM)
-- Notebook Colab com instruções e scripts
+## 🎯 Objetivo geral
 
-Fase C - Documentação e entrega — 1 dia
-- Gerar relatório final em PDF com resumo, metodologia, resultados e limitações
-- Organizar repositório pronto para submissão
+Construir um sistema de Machine Learning capaz de classificar tumores de mama como **malignos** ou **benignos**, utilizando dados clínicos tabulares (obrigatório) e imagens de mamografia (extra).
 
-Próximos passos imediatos (com sua autorização):
-- Instalar dependências base no ambiente
-- Executar pipeline tabular end-to-end e gerar resultados iniciais
+---
 
-Observações:
-- Datasets grandes serão baixados via Kaggle API; preciso que você confirme se quer que eu use sua conta (coloque ~/.kaggle/kaggle.json) ou que eu use datasets menores/localizados por sklearn.
-- Treinamento de CNN full será feito preferencialmente em Colab (recomendo GPU disponível). Vou preparar tudo para rodar lá com instruções.
+## 📅 Fases do projeto
 
-Se estiver OK com o plano, responda "OK prosseguir" e eu começo pela Fase A (tabular).
+### Fase A — Pipeline Tabular (obrigatório)
+
+**Duração estimada**: 3 dias
+
+**O que foi feito:**
+
+1. **Carregamento dos dados**
+   - Dataset Breast Cancer Wisconsin carregado automaticamente via `sklearn.datasets`
+   - Sem necessidade de download manual ou conta Kaggle
+
+2. **Análise Exploratória (EDA)**
+   - Estatísticas descritivas (média, mediana, desvio padrão)
+   - Visualizações: histogramas, box plots, heatmap de correlação
+   - Identificação da distribuição das classes (63% benigno vs 37% maligno)
+
+3. **Pré-processamento**
+   - Verificação de valores ausentes
+   - Normalização com `StandardScaler`
+   - Divisão treino (60%) / validação (20%) / teste (20%) com estratificação
+
+4. **Modelagem e treinamento**
+   - Logistic Regression (baseline interpretável)
+   - Random Forest (captura relações não-lineares)
+   - Cross-validation estratificada (5-fold)
+
+5. **Avaliação**
+   - Métricas: Accuracy, Precision, Recall, F1-Score, ROC-AUC
+   - Matrizes de confusão e curvas ROC/Precision-Recall
+
+6. **Interpretabilidade**
+   - Feature Importance (Random Forest)
+   - SHAP Values (ambos os modelos)
+
+**Artefatos gerados:**
+- Notebook EDA: `notebooks/0_setup_and_eda.ipynb`
+- Script do pipeline: `scripts/run_tabular_pipeline.py`
+- Modelos salvos: `models/logreg.joblib`, `models/rf.joblib`, `models/scaler.joblib`
+- Relatórios: `reports/tabular_summary.json`, gráficos em `reports/`
+
+---
+
+### Fase B — Visão Computacional / CNN (extra)
+
+**Duração estimada**: 5 dias
+
+**O que foi feito:**
+
+1. **Preparação do dataset de imagens**
+   - Subset do CBIS-DDSM (mamografias) baixado via Kaggle API
+   - Pipeline de data augmentation (flip horizontal, normalização)
+
+2. **Treino com Transfer Learning**
+   - Arquitetura: ResNet18 pré-treinada no ImageNet
+   - Fine-tuning: camada final substituída para classificação binária
+   - Treinamento executado preferencialmente em Google Colab com GPU
+
+3. **Avaliação**
+   - Matriz de confusão, Precision/Recall/F1, ROC-AUC
+
+4. **Interpretabilidade**
+   - Grad-CAM: mapas de calor mostrando quais regiões da imagem influenciam a decisão
+
+**Artefatos gerados:**
+- Script de treino: `scripts/train_cnn_pytorch.py`
+- Notebook Colab: `notebooks/colab_train.ipynb`
+- Instruções Colab: `COLAB_INSTRUCTIONS.md`
+- Relatórios CNN: `reports/cnn_classification_report.json`, `reports/gradcam/`
+
+---
+
+### Fase C — Documentação e Entrega
+
+**Duração estimada**: 1 dia
+
+**O que foi feito:**
+
+1. Redação do README principal com instruções claras de execução
+2. Organização da estrutura do repositório
+3. Criação do Dockerfile para execução containerizada
+4. Revisão final de todos os artefatos
+
+---
+
+## 🔧 Ferramentas e tecnologias utilizadas
+
+| Categoria | Ferramenta |
+|-----------|-----------|
+| Linguagem | Python 3.10+ |
+| ML tabulares | scikit-learn, SHAP |
+| Deep Learning | PyTorch, torchvision, timm |
+| Visualização | matplotlib, seaborn |
+| Dados | pandas, numpy |
+| Containerização | Docker |
+| Ambiente GPU | Google Colab |

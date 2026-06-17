@@ -1,46 +1,125 @@
-Colab — Fase B: Treino CNN (ResNet50) — instruções rápidas
+# ☁️ Instruções para treino da CNN no Google Colab
 
-Objetivo
-- Treinar um classificador por transfer learning (ResNet50) em GPU (Colab) usando o conjunto de imagens já organizado em tech_challenge_phase1/data.
-- Salvar modelo, mapas Grad-CAM e relatórios em tech_challenge_phase1/models e tech_challenge_phase1/reports/gradcam_colab.
+> Este guia explica como treinar a rede neural convolucional (CNN) com GPU gratuita do Google Colab.
 
-Preparo (no Colab)
-1) Abra https://colab.research.google.com/ e selecione "New Python 3 notebook".
-2) Runtime > Change runtime type > GPU (preferência: Tesla T4/P100/V100).
-3) Clone este repositório ou suba os arquivos do workspace:
-   - Para clonar do Git (se estiver em um repo remoto):
-     !git clone <SEU_REPO_URL>
-     %cd tech_challenge_phase1
-   - Ou faça upload do diretório tech_challenge_phase1 pelo painel esquerdo (Files > Upload).
+---
 
-Instalação de dependências (no Colab)
-Execute no notebook:
+## 🎯 Objetivo
 
-!pip install -r requirements-colab.txt
+Treinar um classificador de imagens de mamografia usando **Transfer Learning** (ResNet18 pré-treinada) para distinguir lesões benignas de malignas, com visualização de interpretabilidade via **Grad-CAM**.
 
-Se usar Kaggle para baixar CBIS‑DDSM, faça upload do seu kaggle.json para /root/.kaggle/kaggle.json (ou use Colab file upload) e então rode os comandos de download (veja README_PROJECT_PLAN.md).
+---
 
-Executar treino (script preparado)
-No notebook (após instalar dependências e garantir que os dados estejam em tech_challenge_phase1/data/cbis_ddsm_demo):
+## 📋 Pré-requisitos
 
-!python3 tech_challenge_phase1/scripts/train_cnn_colab.py \
-  --data-dir tech_challenge_phase1/data/cbis_ddsm_demo \
-  --uid-csv tech_challenge_phase1/data/uid_label_map.csv \
-  --out-dir tech_challenge_phase1/models \
-  --reports-dir tech_challenge_phase1/reports/gradcam_colab \
+- Uma conta Google (para acessar o Google Colab)
+- *(Opcional)* Uma conta Kaggle com API key (para download automático do dataset CBIS-DDSM)
+
+---
+
+## 🚀 Passo a passo
+
+### Passo 1 — Abrir o Google Colab
+
+1. Acesse [https://colab.research.google.com/](https://colab.research.google.com/)
+2. Clique em **"Novo notebook"** (ou abra diretamente o arquivo `notebooks/colab_train.ipynb` do repositório)
+
+### Passo 2 — Ativar a GPU
+
+1. No menu superior, clique em **Runtime** → **Change runtime type**
+2. Em **Hardware accelerator**, selecione **GPU** (recomendado: T4, P100 ou V100)
+3. Clique em **Save**
+
+> 💡 Sem GPU o treino funciona, mas será muito mais lento.
+
+### Passo 3 — Clonar o repositório
+
+Execute esta célula no notebook:
+
+```python
+!git clone https://github.com/feijolo/FIAP_Fase1_TechChallenge.git
+%cd FIAP_Fase1_TechChallenge
+```
+
+> **Alternativa**: Faça upload manual dos arquivos do projeto pelo painel lateral esquerdo (ícone de pasta → Upload).
+
+### Passo 4 — Instalar dependências
+
+```python
+!pip install -r requirements.txt
+```
+
+### Passo 5 — Preparar o dataset de imagens
+
+**Opção A — Download via Kaggle API** (recomendado para o dataset completo):
+
+1. Acesse [https://www.kaggle.com/settings](https://www.kaggle.com/settings) e clique em **"Create New Token"** para baixar seu `kaggle.json`
+2. No Colab, faça upload do arquivo:
+   ```python
+   from google.colab import files
+   files.upload()  # Selecione o arquivo kaggle.json
+   ```
+3. Mova para o local correto:
+   ```python
+   !mkdir -p ~/.kaggle
+   !mv kaggle.json ~/.kaggle/
+   !chmod 600 ~/.kaggle/kaggle.json
+   ```
+4. Baixe o dataset:
+   ```python
+   !kaggle datasets download -d awsaf49/cbis-ddsm-breast-cancer-image-dataset
+   !unzip -q cbis-ddsm-breast-cancer-image-dataset.zip -d data/cbis_ddsm_demo
+   ```
+
+**Opção B — Upload manual**: Suba as imagens já organizadas para a pasta `data/cbis_ddsm_demo/` com subpastas `train/` e `val/`, cada uma contendo subpastas por classe (`benign/`, `malignant/`).
+
+### Passo 6 — Executar o treino
+
+```python
+!python scripts/train_cnn_pytorch.py
+```
+
+Ou, para controle fino dos parâmetros:
+
+```python
+!python scripts/train_cnn_pytorch.py \
+  --data-dir data/cbis_ddsm_demo \
+  --out-dir models \
+  --reports-dir reports/gradcam \
   --epochs 10 \
   --batch-size 32 \
   --img-size 224
+```
 
-O script salva:
-- models/cnn_resnet50.pth (pesos)
-- reports/gradcam_colab/ (exemplos Grad-CAM)
-- reports/cnn_classification_report.json
+### Passo 7 — Verificar os resultados
 
-Notas e recomendações
-- Ajuste --epochs e --batch-size conforme a GPU disponível; para T4, batch 16–32 é razoável.
-- Para reprodução: defina seed via --seed.
-- Se preferir treinar em Colab Pro (mais VRAM), aumente batch-size e img-size.
-- O script inclui checkpoints automáticos (melhor val acc).
+Após o treino, os seguintes arquivos são gerados:
 
-Pronto — quer que eu crie também um notebook .ipynb pronto para Colab ou executo o script localmente aqui (vai usar CPU e pode demorar)?
+| Arquivo | Descrição |
+|---------|-----------|
+| `models/cnn_resnet50.pth` | Pesos do modelo treinado |
+| `reports/cnn_classification_report.json` | Métricas de avaliação (precision, recall, F1) |
+| `reports/gradcam/` | Imagens Grad-CAM mostrando as regiões de atenção do modelo |
+
+Para baixar os resultados para sua máquina:
+
+```python
+from google.colab import files
+files.download('reports/cnn_classification_report.json')
+# Ou compacte tudo:
+!zip -r resultados.zip models/ reports/
+files.download('resultados.zip')
+```
+
+---
+
+## ⚙️ Ajustes e dicas
+
+| Parâmetro | Recomendação |
+|-----------|-------------|
+| `--epochs` | 10 para teste rápido, 30+ para melhores resultados |
+| `--batch-size` | 16–32 para GPU T4; aumente se usar Colab Pro (mais VRAM) |
+| `--img-size` | 224 (padrão ResNet); aumente para 384 se houver memória disponível |
+| `--seed` | Defina um valor fixo (ex: `--seed 42`) para reprodutibilidade |
+
+> O script inclui **checkpoints automáticos** — ele salva o modelo com melhor acurácia na validação, mesmo que o treino seja interrompido.
