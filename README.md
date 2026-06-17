@@ -48,11 +48,10 @@ Uma rede de hospitais deseja implementar uma ferramenta de IA que auxilie médic
 FIAP_Fase1_TechChallenge/
 │
 ├── README.md                        ← Este arquivo (visão geral e instruções)
-├── README_PROJECT_PLAN.md           ← Plano de execução do projeto
 ├── COLAB_INSTRUCTIONS.md            ← Instruções para treino CNN no Google Colab
 ├── Dockerfile                       ← Arquivo para execução via container Docker
 ├── requirements.txt                 ← Dependências Python (pipeline tabular + CNN)
-├── requirements-image.txt           ← Dependências extras para visão computacional
+├── .gitignore                       ← Arquivos ignorados pelo Git
 │
 ├── src/                             ← Código-fonte reutilizável
 │   ├── data_utils.py                   Funções para carregar e preparar os dados
@@ -63,8 +62,7 @@ FIAP_Fase1_TechChallenge/
 │   ├── inference.py                    Faz previsões usando um modelo já treinado
 │   ├── extract_features.py            Extrai features de imagens com CNN pré-treinada
 │   ├── train_classifier.py            Treina classificador sobre features extraídas
-│   ├── train_cnn_pytorch.py           Treino CNN end-to-end com PyTorch
-│   └── download_data.py               Baixa dados de imagem via Kaggle API
+│   └── train_cnn_pytorch.py           Treino CNN end-to-end com PyTorch
 │
 ├── notebooks/                       ← Notebooks Jupyter
 │   ├── 0_setup_and_eda.ipynb           Análise exploratória completa dos dados tabulares
